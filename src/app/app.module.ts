@@ -4,17 +4,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TestComponent } from './test/test.component';
+
+import { MaterialModule } from "./material.module"
+import { SideNavbarComponent} from "./side-navbar/side-navbar.component"
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent
+    SideNavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
