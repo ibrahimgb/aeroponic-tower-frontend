@@ -1,10 +1,16 @@
 <div class="navbar-container">
-    <div class="side-navbar">           
-         <button type="button" mat-button (click)="drawer.toggle()">
-              Toggle sidenav
-            </button>
+<div class="icons-continer">
+  <div (click)="drawer.toggle()" >
+    <fa-icon color="primary" class="navbar-icon" [icon]="faHouse"></fa-icon>
+  </div>
+  <div (click)="drawer.toggle()" >
+    <fa-icon color="primary" class="navbar-icon" [icon]="faHouse"></fa-icon>
+  </div>
+  <div (click)="drawer.toggle()" >
+    <fa-icon color="primary" class="navbar-icon" [icon]="faUser"></fa-icon>
+  </div>
 
-    </div>
+</div>
 <mat-drawer-container class="sub-navbar-container" autosize>
     <mat-drawer #drawer class="sub-navbar" mode="side">
       <p>Auto-resizing sidenav</p>

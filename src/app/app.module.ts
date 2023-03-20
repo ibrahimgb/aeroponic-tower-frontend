@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from "./material.module"
-import { SideNavbarComponent} from "./side-navbar/side-navbar.component"
+import { SideNavbarComponent} from "./side-navbar/side-navbar.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SideNavbarComponent} from "./side-navbar/side-navbar.component"
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
