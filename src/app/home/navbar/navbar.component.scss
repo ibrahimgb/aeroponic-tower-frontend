@@ -1,0 +1,61 @@
+.navbar{
+    height: 4.5rem;
+    display: flex;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    color: white;
+    background-color: rgb(105, 118, 134);
+    padding-right: 1.5rem;
+    p{
+        margin: 0 0 0px;
+        
+    }
+
+
+
+
+    .share , .save{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 10rem;
+        gap: .6rem;
+    }
+
+
+    .user{
+        display: flex;
+        align-items: center;
+        gap: .8rem;
+        font-size: 1rem;
+        img{
+            aspect-ratio: 1/1;
+            width: 3.5rem;
+            border-radius: 50%;
+        }
+        
+        .user-disc{
+            height:3.5rem;
+            display: flex;
+            align-items: self-start;
+            justify-content: center;
+            flex-direction: column;
+            gap: .3rem;
+            
+            
+            div{
+                cursor: pointer;
+            }
+        }
+        
+
+    }
+
+}
+.flex{
+    display: flex;
+    align-items: center;
+    gap: .5rem
+}
