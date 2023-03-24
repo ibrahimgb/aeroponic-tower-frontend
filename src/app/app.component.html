@@ -1,2 +1,7 @@
-<app-home></app-home>
-<router-outlet></router-outlet>
+
+<body [ngClass]="isDarkTheme?'dark-theme': 'light-theme'">
+    <mat-slide-toggle [(ngModel)]="isDarkTheme">Slide Toggle Checked: {{isDarkTheme}}</mat-slide-toggle>
+    <app-home ></app-home>
+    <router-outlet></router-outlet>
+  </body>
+  

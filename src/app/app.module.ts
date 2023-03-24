@@ -11,6 +11,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { HomeModule} from "./home/home.module"
 import { MatMenuModule} from '@angular/material/menu';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +32,12 @@ import { MatMenuModule} from '@angular/material/menu';
     MaterialModule,
     FontAwesomeModule,
     HomeModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    FormsModule, ReactiveFormsModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
