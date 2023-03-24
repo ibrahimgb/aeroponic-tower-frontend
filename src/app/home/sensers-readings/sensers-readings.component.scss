@@ -1,0 +1,32 @@
+.islend {
+  margin: 15px;
+  padding: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+
+  border: 2px solid rgb(228, 229, 231);
+
+  hr {
+    color: rgba(228, 229, 231, 0.8);
+    border: none;
+    background-color: rgba(228, 229, 231, 0.8);
+    height: 2px;
+    margin-top: 15px;
+  }
+
+  .filter {
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .redings {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-sizing: border-box;
+  }
+}

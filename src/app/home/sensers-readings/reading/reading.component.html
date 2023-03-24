@@ -1,0 +1,16 @@
+<div class="reading">
+  <div class="chip">
+    <fa-icon style="font-size: 0.9rem" [icon]="faArrowUp"></fa-icon>
+    <span> 23%</span>
+  </div>
+  <div class="spinner">
+    <div class="container">
+      <div class="circular-progress" [ngStyle]="style">
+        <span class="progress-value">
+          <p class="disc">inside humidity</p>
+          <p>{{ progressValue }}%</p>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
