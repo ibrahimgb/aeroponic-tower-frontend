@@ -25,10 +25,38 @@
   <hr />
 
   <div class="redings">
-    <app-reading></app-reading>
-    <app-reading></app-reading>
-    <app-reading></app-reading>
-    <app-reading></app-reading>
-    <app-reading></app-reading>
+    <app-reading [unit]="'C'" [value]="lastData.envTemp | async"></app-reading>
+    <app-reading
+      [unit]="'%'"
+      [value]="lastData.envHumidity | async"
+    ></app-reading>
+    <app-reading
+      [unit]="'C'"
+      [value]="lastData.insideTemp | async"
+    ></app-reading>
+    <app-reading
+      [unit]="'%'"
+      [value]="lastData.insideHumidity | async"
+    ></app-reading>
+    <app-reading [unit]="'U'" [value]="lastData.uvLight | async"></app-reading>
   </div>
 </div>
+{{ lastData }}
+<div class="islend first">
+  <div class="filter">
+    <button mat-raised-button color="primary" (click)="getData()">
+      Primary
+    </button>
+    <h2>sensors line chart</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Toppings</mat-label>
+      <mat-select [formControl]="dataToShow" multiple>
+        <mat-option *ngFor="let topping of dataList" [value]="topping">{{
+          topping
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <app-line-chart></app-line-chart>
+</div>
+{{ lastData | json }}

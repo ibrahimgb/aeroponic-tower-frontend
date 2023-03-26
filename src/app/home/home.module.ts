@@ -1,18 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { MatMenuModule} from '@angular/material/menu';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatRippleModule } from '@angular/material/core';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { MatRippleModule} from '@angular/material/core';
-import { SensersReadingsComponent } from './sensers-readings/sensers-readings.component';
-import { MaterialModule } from "../material.module";
-import { ReadingComponent } from './sensers-readings/reading/reading.component';
+import { NgChartsModule } from 'ng2-charts';
+import { MaterialModule } from '../material.module';
+import { HomeComponent } from './home.component';
+import { HomeService } from './home.service';
+import { LineChartComponent } from './line-chart/line-chart.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { ReadingDirective } from './sensers-readings/reading.directive';
-import { LineChartComponent } from './line-chart/line-chart.component'
-
+import { ReadingComponent } from './sensers-readings/reading/reading.component';
+import { SensersReadingsComponent } from './sensers-readings/sensers-readings.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -21,7 +24,7 @@ import { LineChartComponent } from './line-chart/line-chart.component'
     SensersReadingsComponent,
     ReadingComponent,
     ReadingDirective,
-    LineChartComponent
+    LineChartComponent,
   ],
   imports: [
     CommonModule,
@@ -29,11 +32,13 @@ import { LineChartComponent } from './line-chart/line-chart.component'
     FontAwesomeModule,
     MatSlideToggleModule,
     MatRippleModule,
-    MaterialModule
+    MaterialModule,
+    NgChartsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  exports: [
-    HomeComponent
-  ]
-
+  exports: [HomeComponent],
+  providers: [HomeService],
 })
-export class HomeModule { }
+export class HomeModule {}

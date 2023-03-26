@@ -2,6 +2,7 @@
 @include mat-core();
 @import "./assets/theming.scss";
 @import "./assets/customizingAangularMaterial/text.scss";
+@import "./assets/customizingAangularMaterial/datePicker.scss";
 
 .light-theme {
   @include angular-material-theme($light-theme);
@@ -21,4 +22,8 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
 }

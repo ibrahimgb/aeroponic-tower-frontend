@@ -2,8 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
-import { Input } from '@angular/core';
 import { default as Annotation } from 'chartjs-plugin-annotation';
+
+import { HomeService } from '../home.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -12,54 +13,100 @@ import { default as Annotation } from 'chartjs-plugin-annotation';
 })
 export class LineChartComponent {
   private newLabel? = 'New label';
+  data?: any;
+  dataArray?: any;
+  lineChartData!: ChartConfiguration['data'];
 
-  @Input() data?: any;
-
-  dataArry = JSON.parse(this.data);
-
-  constructor() {
+  constructor(private homeService: HomeService) {
     Chart.register(Annotation);
+    console.log(this.data);
   }
 
-  public lineChartData: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        data: [65, 59, 80, 81, 56, 55, 40],
-        label: 'Series A',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      },
-      {
-        data: [28, 48, 40, 19, 86, 27, 90],
-        label: 'Series B',
-        backgroundColor: 'rgba(77,83,96,0.2)',
-        borderColor: 'rgba(77,83,96,1)',
-        pointBackgroundColor: 'rgba(77,83,96,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(77,83,96,1)',
-        fill: 'origin',
-      },
-      {
-        data: [180, 480, 770, 90, 1000, 270, 400],
-        label: 'Series C',
-        yAxisID: 'y1',
-        backgroundColor: 'rgba(255,0,0,0.3)',
-        borderColor: 'red',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      },
-    ],
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  };
+  ngOnInit() {
+    this.homeService.data$.subscribe((i: any) => {
+      this.data = i;
+      this.dataArray = JSON.parse(JSON.stringify(this.data));
+      //console.log(this.dataArray);
+
+      this.lineChartData = {
+        datasets: [
+          {
+            data: this.dataArray.map((item: any) => {
+              return item.envTemp;
+            }),
+            label: 'environmental temperature',
+            yAxisID: 'y1',
+            backgroundColor: 'rgba(148,159,177,0.2)',
+            borderColor: 'rgba(148,159,177,1)',
+            pointBackgroundColor: 'rgba(148,159,177,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+            fill: 'origin',
+          },
+          {
+            data: this.dataArray.map((item: any) => {
+              return item.envHumidity;
+            }),
+            label: 'environmental humidity',
+            yAxisID: 'y2',
+            backgroundColor: 'rgba(77,83,96,0.2)',
+            borderColor: 'rgba(77,83,96,1)',
+            pointBackgroundColor: 'rgba(77,83,96,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(77,83,96,1)',
+            fill: 'origin',
+          },
+          {
+            data: this.dataArray.map((item: any) => {
+              return item.insideTemp;
+            }),
+            label: 'inside temperature',
+            yAxisID: 'y1',
+            backgroundColor: 'rgba(255,0,0,0.3)',
+            borderColor: 'red',
+            pointBackgroundColor: 'rgba(148,159,177,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+            fill: 'origin',
+          },
+          {
+            data: this.dataArray.map((item: any) => {
+              return item.insideHumidity;
+            }),
+            label: 'inside humidity',
+            yAxisID: 'y2',
+            backgroundColor: 'rgba(255,0,0,0.3)',
+            borderColor: 'red',
+            pointBackgroundColor: 'rgba(148,159,177,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+            fill: 'origin',
+          },
+          {
+            data: this.dataArray.map((item: any) => {
+              return item.uvLight;
+            }),
+            label: 'UV light',
+            yAxisID: 'y1',
+            backgroundColor: 'rgba(255,0,0,0.3)',
+            borderColor: 'red',
+            pointBackgroundColor: 'rgba(148,159,177,1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+            fill: 'origin',
+          },
+        ],
+        labels: this.dataArray.map((item: any) => {
+          return item.timeCaptured;
+        }),
+      };
+    });
+  }
 
   public lineChartOptions: ChartConfiguration['options'] = {
     elements: {
@@ -92,7 +139,7 @@ export class LineChartComponent {
             scaleID: 'x',
             value: 'March',
             borderColor: 'orange',
-            borderWidth: 2,
+            borderWidth: 1,
             label: {
               display: true,
               position: 'center',
@@ -111,20 +158,6 @@ export class LineChartComponent {
   public lineChartType: ChartType = 'line';
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
-  private static generateNumber(i: number): number {
-    return Math.floor(Math.random() * (i < 2 ? 100 : 1000) + 1);
-  }
-
-  public randomize(): void {
-    for (let i = 0; i < this.lineChartData.datasets.length; i++) {
-      for (let j = 0; j < this.lineChartData.datasets[i].data.length; j++) {
-        this.lineChartData.datasets[i].data[j] =
-          LineChartComponent.generateNumber(i);
-      }
-    }
-    this.chart?.update();
-  }
 
   // events
   public chartClicked({
@@ -150,18 +183,6 @@ export class LineChartComponent {
   public hideOne(): void {
     const isHidden = this.chart?.isDatasetHidden(1);
     this.chart?.hideDataset(1, !isHidden);
-  }
-
-  public pushOne(): void {
-    this.lineChartData.datasets.forEach((x, i) => {
-      const num = LineChartComponent.generateNumber(i);
-      x.data.push(num);
-    });
-    this.lineChartData?.labels?.push(
-      `Label ${this.lineChartData.labels.length}`
-    );
-
-    this.chart?.update();
   }
 
   public changeColor(): void {

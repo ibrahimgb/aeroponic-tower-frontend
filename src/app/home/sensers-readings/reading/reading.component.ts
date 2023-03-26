@@ -1,11 +1,15 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-reading',
   templateUrl: './reading.component.html',
   styleUrls: ['./reading.component.scss'],
 })
 export class ReadingComponent {
+  @Input() unit?: string;
+  @Input() value?: Observable<number> | null; //progressValue
+
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
   downClr = { background: 'rgb(237, 103, 78)' };
