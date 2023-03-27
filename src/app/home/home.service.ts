@@ -31,6 +31,14 @@ export class HomeService {
     );
   }
 
+  getLastData2(towerId: String) {
+    const params = new HttpParams().set('towerId', towerId.toString());
+
+    return this.http.get('http://192.168.1.14:3000/sensor/getLastReadings', {
+      params: params,
+    });
+  }
+
   getSenserData(startDate: Date, endDate: Date, towerId: String) {
     console.log('getSenserData');
     let response;

@@ -25,23 +25,33 @@
   <hr />
 
   <div class="redings">
-    <app-reading [unit]="'C'" [value]="lastData.envTemp | async"></app-reading>
+    <app-reading
+      [unit]="'C'"
+      [value]="lastData[0].envTemp"
+      [beforeValue]="lastData[1].envTemp"
+    ></app-reading>
     <app-reading
       [unit]="'%'"
-      [value]="lastData.envHumidity | async"
+      [value]="lastData[0].envHumidity"
+      [beforeValue]="lastData[1].envHumidity"
     ></app-reading>
     <app-reading
       [unit]="'C'"
-      [value]="lastData.insideTemp | async"
+      [value]="lastData[0].insideTemp"
+      [beforeValue]="lastData[1].insideTemp"
     ></app-reading>
     <app-reading
       [unit]="'%'"
-      [value]="lastData.insideHumidity | async"
+      [value]="lastData[0].insideHumidity"
+      [beforeValue]="lastData[1].insideHumidity"
     ></app-reading>
-    <app-reading [unit]="'U'" [value]="lastData.uvLight | async"></app-reading>
+    <app-reading
+      [unit]="'U'"
+      [value]="lastData[0].uvLight"
+      [beforeValue]="lastData[1].uvLight"
+    ></app-reading>
   </div>
 </div>
-{{ lastData }}
 <div class="islend first">
   <div class="filter">
     <button mat-raised-button color="primary" (click)="getData()">

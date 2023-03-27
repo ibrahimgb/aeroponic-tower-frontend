@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { HomeService } from '../home.service';
 
 import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-sensers-readings',
   templateUrl: './sensers-readings.component.html',
@@ -29,10 +30,12 @@ export class SensersReadingsComponent {
     //this.getData();
 
     // activatedRoute.params.subscribe((params) => {
-    //   this.homeService.getLastData(this.id);
-    //   this.homeService.lastData$.subscribe((i: any) => {
-    //     this.lastData = i;
-    //   });
+    this.homeService.getLastData2(this.id).subscribe((data) => {
+      this.lastData = data;
+    });
+    // this.homeService.lastData$.subscribe((i: any) => {
+    //   this.lastData = i;
+    // });
     // });
   }
 
@@ -51,10 +54,10 @@ export class SensersReadingsComponent {
     this.homeService.getSenserData(this.minDate, this.maxDate, this.id);
     this.homeService.data$.subscribe((i: any) => (this.data = i));
 
-    this.homeService.getLastData(this.id);
-    this.homeService.lastData$.subscribe((i: any) => {
-      this.lastData = i;
-    });
+    // this.homeService.getLastData(this.id);
+    // this.homeService.lastData$.subscribe((i: any) => {
+    //   this.lastData = i;
+    // });
   }
 
   async getData() {
