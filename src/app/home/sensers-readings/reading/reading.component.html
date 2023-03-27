@@ -1,14 +1,17 @@
 <div class="reading">
-  <div class="chip">
-    <fa-icon style="font-size: 0.9rem" [icon]="faArrowUp"></fa-icon>
-    <span> 23%</span>
+  <div
+    class="chip"
+    [ngStyle]="{ 'background-color': increasedValue >= 0 ? upClr : downClr }"
+  >
+    <fa-icon style="font-size: 0.9rem" [icon]="icon()"></fa-icon>
+    <span> {{ increasedValue }}%</span>
   </div>
   <div class="spinner">
     <div class="container">
       <div class="circular-progress" [ngStyle]="style">
         <span class="progress-value">
           <p class="disc">inside humidity</p>
-          <p>{{ value }} {{ unit }}</p>
+          <p [ngStyle]="{ color: clr }">{{ value }} {{ unit }}</p>
         </span>
       </div>
     </div>
