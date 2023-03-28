@@ -1,31 +1,33 @@
 <div class="navbar">
+  <div class="save">
+    <p>save</p>
+    <fa-icon style="font-size: 15px" [icon]="faDownload"></fa-icon>
+  </div>
 
-    <div class="save">
-        <p>save</p>
-        <fa-icon style="font-size: 15px;" [icon]="faDownload"></fa-icon>
+  <div class="share">
+    <fa-icon style="font-size: 15px" [icon]="faShare"></fa-icon>
+    <p>share</p>
+    <fa-icon style="font-size: 15px" [icon]="faCaretDown"></fa-icon>
+  </div>
+
+  <div class="user">
+    <img
+      src="https://media.licdn.com/dms/image/D4E03AQH8pdd9eK-UOA/profile-displayphoto-shrink_800_800/0/1669576435376?e=1684972800&v=beta&t=7e9JQtGr750p_4tevAbzibzeaCoKwkiK_81wdgc2Obw"
+      alt=""
+    />
+    <div class="user-disc">
+      <p class="cat">user</p>
+      <div class="flex" mat-button [matMenuTriggerFor]="menu">
+        <fa-icon style="font-size: 15px" [icon]="faCaretDown"></fa-icon>
+        <p>ibrahim guoual</p>
+      </div>
     </div>
-
-    <div class="share">
-        <fa-icon style="font-size: 15px;" [icon]="faShare"></fa-icon>
-        <p>share</p>
-        <fa-icon style="font-size: 15px;" [icon]="faCaretDown"></fa-icon>
-    </div>
-
-
-    <div class="user">
-        <img src="https://media.licdn.com/dms/image/D4E03AQH8pdd9eK-UOA/profile-displayphoto-shrink_800_800/0/1669576435376?e=1684972800&v=beta&t=7e9JQtGr750p_4tevAbzibzeaCoKwkiK_81wdgc2Obw" alt="">
-        <div class="user-disc">
-           
-            <p class="cat">user</p>
-            <div class="flex" mat-button [matMenuTriggerFor]="menu"> 
-                <fa-icon style="font-size: 15px;" [icon]="faCaretDown"></fa-icon>
-                 <p>ibrahim guoual</p></div>
-        </div>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item>Item 1</button>
-            <button mat-menu-item>Item 2</button>
-          </mat-menu>
-    </div>
-    <mat-slide-toggle className="toggle">Dark mode</mat-slide-toggle>
-
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Item 1</button>
+      <button mat-menu-item>Item 2</button>
+    </mat-menu>
+  </div>
+  <mat-slide-toggle (click)="toggleTheme()"
+    >Slide Toggle Checked: {{ isDarkTheme }}</mat-slide-toggle
+  >
 </div>

@@ -1,14 +1,20 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'angular101';
-  isDarkTheme = false;
+  isDarkTheme!: boolean;
+  constructor(private appService: AppService) {}
 
+  ngOnInit() {
+    this.appService.currentisDarkTheme.subscribe(
+      (msg) => (this.isDarkTheme = msg)
+    );
+  }
 }
