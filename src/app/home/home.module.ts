@@ -16,6 +16,7 @@ import { ReadingDirective } from './sensers-readings/reading.directive';
 import { ReadingComponent } from './sensers-readings/reading/reading.component';
 import { SensersReadingsComponent } from './sensers-readings/sensers-readings.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -25,6 +26,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     ReadingComponent,
     ReadingDirective,
     LineChartComponent,
+    UserSettingsComponent,
   ],
   imports: [
     CommonModule,

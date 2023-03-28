@@ -1,9 +1,17 @@
+<!-- {{ towers | json }} -->
 <div class="islend">
   <div class="filter">
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <button mat-button [matMenuTriggerFor]="menu">
+      {{ selectedTower.name }}
+    </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Item 1</button>
-      <button mat-menu-item>Item 2</button>
+      <button
+        mat-menu-item
+        *ngFor="let item of towers"
+        (click)="clickMenuItem(item)"
+      >
+        <span> {{ item.name }}</span>
+      </button>
     </mat-menu>
 
     <mat-form-field class="example-full-width" appearance="fill">
@@ -69,4 +77,4 @@
   </div>
   <app-line-chart></app-line-chart>
 </div>
-{{ lastData | json }}
+<!-- {{ lastData | json }} -->

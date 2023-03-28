@@ -14,6 +14,13 @@ export class HomeService {
     //this.data$ = data;
   }
 
+  private _allAeroponicTower = new Subject();
+  allAeroponicTower$: any = this._allAeroponicTower.asObservable();
+  updateAllAeroponicTower(data: any) {
+    this._allAeroponicTower.next(data);
+    this.allAeroponicTower$ = data;
+  }
+
   private _lastData = new Subject();
   lastData$: any; // = this._data.asObservable();
   sendLastData(data: any) {
@@ -30,6 +37,18 @@ export class HomeService {
   //     })
   //   );
   // }
+
+  //http://192.168.1.14:3000/aeroponic-tower/all
+
+  getAllAeroponicTower() {
+    const res = this.http.get('http://192.168.1.14:3000/aeroponic-tower/all');
+
+    res.subscribe((val) => {
+      this.updateAllAeroponicTower(val);
+      console.log('dd');
+      console.log(this.allAeroponicTower$);
+    });
+  }
 
   getLastData(towerId: String) {
     const params = new HttpParams().set('towerId', towerId.toString());

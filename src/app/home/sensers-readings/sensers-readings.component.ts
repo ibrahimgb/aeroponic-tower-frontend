@@ -43,6 +43,10 @@ export class SensersReadingsComponent {
   id: string = 'EC:94:CB:4B:54:F0';
   data?: any;
   lastData!: any;
+
+  towers: any;
+  selectedTower: any;
+
   constructor(
     private homeService: HomeService,
     activatedRoute: ActivatedRoute
@@ -85,11 +89,21 @@ export class SensersReadingsComponent {
     return new Date(todayString);
   }
 
+  clickMenuItem(item: any) {
+    this.selectedTower = item;
+  }
+
   ngOnInit() {
     this.homeService.getSenserDataUpdate(this.minDate, this.maxDate, this.id);
     this.homeService.data$.subscribe((i: any) => {
       this.data = i;
       console.log('updated');
+    });
+
+    this.homeService.getAllAeroponicTower();
+    this.homeService.allAeroponicTower$.subscribe((i: any) => {
+      this.towers = i;
+      this.selectedTower = i[0];
     });
 
     // this.homeService.getLastData(this.id);
