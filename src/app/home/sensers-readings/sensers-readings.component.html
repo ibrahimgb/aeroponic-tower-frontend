@@ -13,6 +13,7 @@
         [min]="minDate"
         [max]="maxDate"
         [matDatepicker]="picker"
+        (dateChange)="changeDate($event)"
       />
       <mat-datepicker-toggle
         matIconSuffix
@@ -21,7 +22,6 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   </div>
-
   <hr />
 
   <div class="redings">
