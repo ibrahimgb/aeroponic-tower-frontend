@@ -1,8 +1,12 @@
-.fex{
-    display: flex;
-
+.item {
+  flex: auto;
+  margin-left: 16rem;
 }
+.side_nav {
+  width: 16rem;
+  position: fixed;
+  height: 100%;
+  z-index: 1;
 
-.item{
-    flex:auto;
+  background-color: #111;
 }
