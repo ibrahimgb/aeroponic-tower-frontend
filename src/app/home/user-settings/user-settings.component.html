@@ -1,0 +1,71 @@
+<div class="flex">
+  <div class="main">
+    <div class="title">
+      <h2>Your profile picture</h2>
+      <p>control your profile parameters</p>
+    </div>
+    <div>
+      <div class="edit-profile">
+        <img src="http://placehold.it/170x170" alt="Image" />
+        <div>
+          <button mat-raised-button>Basic</button>
+          <button mat-raised-button color="warn">Warn</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <form [formGroup]="myForm" class="form">
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="" formControlName="firstName" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="" formControlName="lastName" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="" formControlName="email" />
+        </mat-form-field>
+        <!-- <mat-form-field>
+                  <mat-label>message i</mat-label>
+                  <input matInput placeholder="email" formControlName="phoneNumber" />
+                </mat-form-field> -->
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Phone Number</mat-label>
+          <span matPrefix> + &nbsp;</span>
+          <input
+            type="tel"
+            matInput
+            placeholder="555-555-1234"
+            formControlName="phoneNumber"
+          />
+        </mat-form-field>
+      </form>
+
+      <button
+        mat-raised-button
+        [disabled]="submitIsDisabled"
+        (click)="submit()"
+      >
+        Save Changes
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <h4>Build confidence!</h4>
+      <p>
+        Your photo will appear on emails and on the online appointment link this
+        will allow your partners to recognise you!
+      </p>
+
+      <img class="hi" alt="My image name" [src]="'./assets/imgs/hi.png'" />
+    </div>
+  </div>
+</div>
