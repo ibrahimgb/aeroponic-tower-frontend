@@ -28,6 +28,13 @@ export class HomeService {
     this.lastData$ = data;
   }
 
+  private _user = new Subject();
+  user$: any; // = this._data.asObservable();
+  updateUser(data: any) {
+    this._user.next(data);
+    this.user$ = data;
+  }
+
   // getLastData(towerId: String) {
   //   const params = new HttpParams().set('towerId', towerId.toString());
 
@@ -39,6 +46,28 @@ export class HomeService {
   // }
 
   //http://192.168.1.14:3000/aeroponic-tower/all
+
+  getCurrentUser() {
+    //
+    const res = this.http.get('http://192.168.1.14:3000/user');
+
+    res.subscribe((val) => {
+      this.updateUser(val);
+      console.log(this.user$);
+    });
+
+    return res;
+  }
+
+  editUser(edit: any) {
+    const res = this.http.patch('http://192.168.1.14:3000/user', {
+      ...edit,
+    });
+    res.subscribe((val) => {
+      this.updateUser(val);
+      console.log(val);
+    });
+  }
 
   getAllAeroponicTower() {
     const res = this.http.get('http://192.168.1.14:3000/aeroponic-tower/all');
