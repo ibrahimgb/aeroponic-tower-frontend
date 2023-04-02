@@ -8,8 +8,14 @@
       <div class="edit-profile">
         <img src="http://placehold.it/170x170" alt="Image" />
         <div>
-          <button mat-raised-button>Basic</button>
-          <button mat-raised-button color="warn">Warn</button>
+          <button mat-raised-button>
+            <mat-icon>edit</mat-icon>
+            Basic
+          </button>
+          <button mat-raised-button color="warn">
+            <mat-icon>delete_forever</mat-icon>
+            Warn
+          </button>
         </div>
       </div>
     </div>
@@ -69,3 +75,4 @@
     </div>
   </div>
 </div>
+<app-edit-profile-pic></app-edit-profile-pic>

@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class HomeService {
+  auth_token: string =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiYWJpci5ndW91YWwuYkBnbWFpbC5jb20iLCJpYXQiOjE2ODAzODI1MzMsImV4cCI6MTY4MTI4MjUzM30.dZFcW7sruU8_95NCMcOZwVioTuXtIqY-_PRkjXroUWY';
   constructor(private http: HttpClient) {}
 
   private _data = new Subject();
@@ -35,6 +37,13 @@ export class HomeService {
     this.user$ = data;
   }
 
+  private _avatar = new Subject();
+  avatar$: any; // = this._data.asObservable();
+  updateAvatar(data: any) {
+    this._avatar.next(data);
+    this.avatar$ = data;
+  }
+
   // getLastData(towerId: String) {
   //   const params = new HttpParams().set('towerId', towerId.toString());
 
@@ -47,13 +56,79 @@ export class HomeService {
 
   //http://192.168.1.14:3000/aeroponic-tower/all
 
+  saveProfileImage(img: any) {
+    const headers = new HttpHeaders({
+      // 'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    const requestOptions = { headers: headers };
+
+    const data = new FormData();
+    data.append('file', img);
+    console.log(img);
+
+    return this.http
+      .post('http://192.168.1.14:3000/user/uploadAvatar', data, requestOptions)
+      .subscribe((avatar: any) => {
+        this.updateAvatar(avatar);
+      });
+  }
+
+  getAvatar(name: string) {
+    const res = this.http.get(
+      `http://192.168.1.14:3000/user/profile-image/${name}`
+    );
+
+    res.subscribe((val: any) => {
+      this.updateAvatar(val);
+      console.log(val);
+    });
+  }
+  getUserAvatar() {
+    // const headers = new HttpHeaders({
+    //   // 'Content-Type': 'multipart/form-data',
+    //   Authorization: `Bearer ${this.auth_token}`,
+    // });
+    // const requestOptions = { headers: headers };
+
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+      responseType: 'blob',
+    };
+
+    const res = this.http.get(
+      `http://192.168.1.14:3000/user/profile-image/`,
+      HTTPOptions
+    );
+
+    return res;
+  }
+
   getCurrentUser() {
     //
-    const res = this.http.get('http://192.168.1.14:3000/user');
 
-    res.subscribe((val) => {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    const requestOptions = { headers: headers };
+
+    const res = this.http.get(
+      'http://192.168.1.14:3000/user/me',
+      requestOptions
+    );
+
+    res.subscribe((val: any) => {
       this.updateUser(val);
-      console.log(this.user$);
+      console.log(val);
+
+      if (val.avatar) {
+        this.getAvatar(val.avatar);
+      }
     });
 
     return res;
