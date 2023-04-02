@@ -1,0 +1,47 @@
+<div class="div">
+  <mat-card class="mat-card">
+    <mat-card-header>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      <mat-card-title>Shiba Inu</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <image-cropper
+          class="img-cropper"
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="4 / 4"
+          [resizeToWidth]="256"
+          [onlyScaleDown]="true"
+          [roundCropper]="false"
+          [transform]="transform"
+          [alignImage]="'left'"
+          [style.display]="showCropper ? null : 'none'"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady($event)"
+          (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+      </div>
+
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions class="flex">
+      <button mat-raised-button>
+        <label class="coustom-file-upload">
+          Upload
+          <input type="file" (change)="fileChangeEvent($event)" />
+        </label>
+      </button>
+
+      <button mat-raised-button (click)="saveImage()">Save</button>
+    </mat-card-actions>
+    <mat-card-footer>
+      <mat-progress-bar
+        *ngIf="uploading"
+        mode="indeterminate"
+      ></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</div>
