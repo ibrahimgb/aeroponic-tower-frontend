@@ -1,0 +1,38 @@
+.example-card {
+  width: 20rem;
+  min-width: min(100%, 30rem);
+  padding: 1rem;
+  //height: 20rem;
+  .header {
+    padding-top: 0.2rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+  }
+
+  .content {
+    padding-bottom: 0.4rem;
+  }
+
+  .flex_start {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.2rem;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .status {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background-color: green;
+    color: transparent;
+  }
+  .days_left {
+    margin-top: 0.5rem;
+  }
+}

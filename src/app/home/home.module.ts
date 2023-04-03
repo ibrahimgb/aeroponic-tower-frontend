@@ -19,6 +19,8 @@ import { SensersReadingsComponent } from './sensers-readings/sensers-readings.co
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { EditProfilePicComponent } from './user-settings/edit-profile-pic/edit-profile-pic.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { MonitoringComponent } from './monitoring/monitoring.component';
+import { TowerMonitoringComponent } from './monitoring/tower-monitoring/tower-monitoring.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -30,6 +32,8 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
     LineChartComponent,
     UserSettingsComponent,
     EditProfilePicComponent,
+    MonitoringComponent,
+    TowerMonitoringComponent,
   ],
   imports: [
     CommonModule,

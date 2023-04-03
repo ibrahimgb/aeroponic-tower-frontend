@@ -1,0 +1,41 @@
+<mat-card class="example-card">
+  <mat-card-header class="header">
+    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+    <mat-card-title>{{ tower.name }}</mat-card-title>
+    <mat-card-subtitle>{{ tower.content }}</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    mat-card-image
+    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    alt="Photo of a Shiba Inu"
+  />
+  <mat-card-content class="content">
+    <div class="flex_start">
+      <div
+        class="status"
+        [ngStyle]="{
+          'background-color': waterNeedsRefilling ? '#ff7800' : 'green'
+        }"
+      >
+        .
+      </div>
+      <p>water level state is {{ waterNeedsRefilling ? "Low" : "Good" }}</p>
+    </div>
+
+    <div class="flex_start">
+      <div
+        class="status"
+        [ngStyle]="{ 'background-color': pumpIsWorking ? 'green' : '#ff7800' }"
+      >
+        .
+      </div>
+      <p>pump state {{ pumpIsWorking ? "working" : "Not working" }}</p>
+    </div>
+
+    <p class="days_left">{{ daysLeftToHarvest }} days left before harvest</p>
+  </mat-card-content>
+  <!-- <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions> -->
+</mat-card>
