@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { HomeService } from '../../home.service';
-
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 @Component({
   selector: 'app-tower-monitoring',
   templateUrl: './tower-monitoring.component.html',
@@ -13,7 +14,7 @@ export class TowerMonitoringComponent {
   pumpIsWorking: any;
   daysLeftToHarvest: number = 0;
 
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.homeService.getLastData(this.tower.id).subscribe((i: any) => {
@@ -29,6 +30,18 @@ export class TowerMonitoringComponent {
       console.log(diffDays + ' days');
 
       //console.log(i);
+    });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: this.tower,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      console.log(result);
+      //this.tower = result;
     });
   }
 }
