@@ -44,6 +44,13 @@ export class HomeService {
     this.avatar$ = data;
   }
 
+  private _pumpInterval = new Subject();
+  pumpInterval$: any = this._data.asObservable();
+  updatePumpInterval(data: any) {
+    this._pumpInterval.next(data);
+    this.pumpInterval$ = data;
+  }
+
   // getLastData(towerId: String) {
   //   const params = new HttpParams().set('towerId', towerId.toString());
 
@@ -159,6 +166,24 @@ export class HomeService {
 
     return this.http.get('http://192.168.1.14:3000/sensor/getLastReadings', {
       params: params,
+    });
+  }
+
+  setAeroponicTower(tower: any) {
+    return this.http.post(
+      'http://192.168.1.14:3000/aeroponic-tower/editTower',
+      tower
+    );
+  }
+
+  getAllPumpInterval() {
+    const res = this.http.get(
+      'http://192.168.1.14:3000/aeroponic-tower/allPumpIntervals'
+    );
+
+    res.subscribe((val) => {
+      this.updatePumpInterval(val);
+      console.log(val);
     });
   }
 

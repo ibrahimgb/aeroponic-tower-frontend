@@ -21,6 +21,7 @@ import { EditProfilePicComponent } from './user-settings/edit-profile-pic/edit-p
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { MonitoringComponent } from './monitoring/monitoring.component';
 import { TowerMonitoringComponent } from './monitoring/tower-monitoring/tower-monitoring.component';
+import { EditDialogComponent } from './monitoring/tower-monitoring/edit-dialog/edit-dialog.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -34,6 +35,7 @@ import { TowerMonitoringComponent } from './monitoring/tower-monitoring/tower-mo
     EditProfilePicComponent,
     MonitoringComponent,
     TowerMonitoringComponent,
+    EditDialogComponent,
   ],
   imports: [
     CommonModule,

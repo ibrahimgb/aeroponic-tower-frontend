@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card class="example-card" (click)="openDialog()">
   <mat-card-header class="header">
     <!-- <div mat-card-avatar class="example-header-image"></div> -->
     <mat-card-title>{{ tower.name }}</mat-card-title>
@@ -25,7 +25,9 @@
     <div class="flex_start">
       <div
         class="status"
-        [ngStyle]="{ 'background-color': pumpIsWorking ? 'green' : '#ff7800' }"
+        [ngStyle]="{
+          'background-color': pumpIsWorking ? 'green' : '#ff7800'
+        }"
       >
         .
       </div>
