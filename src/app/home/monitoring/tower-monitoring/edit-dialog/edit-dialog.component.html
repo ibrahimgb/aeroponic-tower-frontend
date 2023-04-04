@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>Edit your tower params</h1>
+
+<div class="main">
+  <div>
+    <div class="edit-profile">
+      <img src="http://placehold.it/170x170" alt="Image" />
+      <div>
+        <button mat-raised-button>
+          <mat-icon>edit</mat-icon>
+          Basic
+        </button>
+        <button mat-raised-button color="warn">
+          <mat-icon>delete_forever</mat-icon>
+          Warn
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <form [formGroup]="myForm" class="form">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="" formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Content</mat-label>
+        <textarea matInput placeholder="" formControlName="content"></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Size</mat-label>
+        <input matInput placeholder="" formControlName="size" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Pump Intervals</mat-label>
+        <mat-select [(value)]="selectedValue" name="food">
+          <mat-option
+            *ngFor="let food of pumpIntervals | async"
+            [value]="food.value"
+          >
+            {{ food.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+<div class="actions">
+  <button mat-raised-button [disabled]="submitIsDisabled" (click)="submit()">
+    Save Changes
+  </button>
+
+  <button mat-raised-button (click)="onNoClick()">Close</button>
+</div>

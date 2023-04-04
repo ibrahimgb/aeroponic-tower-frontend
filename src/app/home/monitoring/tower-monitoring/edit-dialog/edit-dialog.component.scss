@@ -1,0 +1,81 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.main {
+  .title {
+    h2 {
+      //font-size: 2rem;
+      //font-weight: 600;
+      color: rgba(54, 60, 68, 0.87);
+    }
+    p {
+      font-size: 1.2rem;
+      color: rgb(105, 118, 134);
+    }
+  }
+  margin: 1.5rem;
+  margin-top: 0;
+  //   border: 2px solid red;
+  width: 25rem;
+  .edit-profile {
+    img {
+      //border-radius: 50%;
+    }
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 1rem;
+      width: 100%;
+      margin-bottom: 17px;
+      margin-top: 17px;
+      button {
+        min-width: 7rem !important;
+      }
+    }
+    //margin-bottom: 0.5rem;
+  }
+
+  .form {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.card {
+  padding: 0.5rem;
+  width: 28rem;
+  height: 10rem;
+  position: relative;
+  background-image: linear-gradient(
+    to right,
+    rgb(105, 118, 134),
+    rgb(151, 158, 176)
+  );
+  color: #ffffff;
+  border-radius: 5px;
+  p {
+    max-width: 65%;
+  }
+  .hi {
+    width: 15rem;
+    position: absolute;
+    right: -4rem;
+    top: -7rem;
+  }
+}
+// h1,
+// h2 {
+//   margin: 0;
+// }
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px;
+}
