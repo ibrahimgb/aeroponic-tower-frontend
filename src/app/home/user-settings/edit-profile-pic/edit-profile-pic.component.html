@@ -13,9 +13,11 @@
           [aspectRatio]="4 / 4"
           [resizeToWidth]="256"
           [onlyScaleDown]="true"
+          [imageFile]="avatar"
           [roundCropper]="false"
           [transform]="transform"
-          [alignImage]="'left'"
+          [alignImage]="'center'"
+          [roundCropper]="true"
           [style.display]="showCropper ? null : 'none'"
           format="png"
           (imageCropped)="imageCropped($event)"
@@ -44,4 +46,6 @@
       ></mat-progress-bar>
     </mat-card-footer>
   </mat-card>
+
+  <!-- <img [src]="croppedImage" alt="" /> -->
 </div>

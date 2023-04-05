@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { HomeService } from '../home.service';
 
 @Component({
@@ -12,8 +13,13 @@ export class UserSettingsComponent {
   myForm!: FormGroup;
   user!: any;
   submitIsDisabled = true;
+  avatar!: any;
 
-  constructor(private fb: FormBuilder, private homeService: HomeService) {}
+  constructor(
+    private fb: FormBuilder,
+    private homeService: HomeService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   submit() {
     const res = this.homeService.editUser({
@@ -59,6 +65,33 @@ export class UserSettingsComponent {
         phoneNumber: i.phoneNumber,
       });
       console.log('sdf');
+    });
+
+    this.homeService.getUserAvatar();
+    this.homeService.userAvatar$.subscribe((blob: any) => {
+      let objectURL = URL.createObjectURL(blob);
+      //this.avatar = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      // console.log(this.avatar);
+
+      this.blobToBase64(blob).then((res: any) => {
+        // do what you wanna do
+
+        console.log(res); // res is base64 now
+
+        this.homeService.setAvatarBase64(res);
+
+        this.avatar = this.sanitizer.bypassSecurityTrustUrl(res);
+      });
+    });
+  }
+
+  blobToBase64(blob: any) {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    return new Promise((resolve) => {
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
     });
   }
 }

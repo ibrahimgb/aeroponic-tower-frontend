@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class HomeService {
   auth_token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiYWJpci5ndW91YWwuYkBnbWFpbC5jb20iLCJpYXQiOjE2ODAzODI1MzMsImV4cCI6MTY4MTI4MjUzM30.dZFcW7sruU8_95NCMcOZwVioTuXtIqY-_PRkjXroUWY';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiYWJpci5ndW91YWwuYkBnbWFpbC5jb20iLCJpYXQiOjE2ODA2NTMwNTksImV4cCI6MTY4MTU1MzA1OX0.TVe1mk4R1v2mPM3bUyv6XmzC25-D_9t44IVtM78XeaE';
   constructor(private http: HttpClient) {}
 
   private _data = new Subject();
@@ -45,10 +45,30 @@ export class HomeService {
   }
 
   private _pumpInterval = new Subject();
-  pumpInterval$: any = this._data.asObservable();
+  pumpInterval$: any = this._pumpInterval.asObservable();
   updatePumpInterval(data: any) {
     this._pumpInterval.next(data);
     this.pumpInterval$ = data;
+  }
+
+  private _userAvatar = new Subject();
+  userAvatar$: any = this._userAvatar.asObservable();
+  updateUserAvatar(data: any) {
+    this._userAvatar.next(data);
+    this.userAvatar$ = data;
+  }
+
+  private _userAvatarBase64 = new Subject();
+  userAvatarBase64$: any = this._userAvatarBase64.asObservable();
+  setAvatarBase64(data: any) {
+    this._userAvatarBase64.next(data);
+    this.userAvatarBase64$ = data;
+  }
+
+  private avatarBase64: any;
+
+  getAvatarBase64() {
+    return this.userAvatarBase64$;
   }
 
   // getLastData(towerId: String) {
@@ -111,7 +131,9 @@ export class HomeService {
       HTTPOptions
     );
 
-    return res;
+    res.subscribe((val) => {
+      this.updateUserAvatar(val);
+    });
   }
 
   getCurrentUser() {
@@ -134,7 +156,7 @@ export class HomeService {
       console.log(val);
 
       if (val.avatar) {
-        this.getAvatar(val.avatar);
+        this.getUserAvatar();
       }
     });
 

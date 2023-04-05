@@ -22,14 +22,46 @@ export class EditProfilePicComponent {
   transform: ImageTransform = {};
   user: any;
 
-  sv: any;
+  avatar!: any;
+  avatar1 = this.sanitizer.bypassSecurityTrustUrl(
+    this.homeService.getAvatarBase64()
+  );
 
   constructor(
     private homeService: HomeService,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private sanitizer: DomSanitizer
   ) {
     this.homeService.getCurrentUser().subscribe((user) => {
       this.user = user;
+    });
+  }
+
+  ngOnInit() {
+    this.homeService.getUserAvatar();
+    this.homeService.userAvatar$.subscribe((blob: any) => {
+      let objectURL = URL.createObjectURL(blob);
+      this.avatar = blob;
+      //this.avatar = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      // console.log(this.avatar);
+      // this.blobToBase64(blob).then((res: any) => {
+      //   // do what you wanna do
+
+      //   console.log('res is base64 now');
+      //   //console.log(res); // res is base64 now
+      //   this.homeService.setAvatarBase64(res);
+      //   this.avatar = this.sanitizer.bypassSecurityTrustUrl(res);
+      // });
+    });
+  }
+
+  blobToBase64(blob: any) {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    return new Promise((resolve) => {
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
     });
   }
 
@@ -92,7 +124,9 @@ export class EditProfilePicComponent {
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
     //console.log(event, base64ToFile(event.base64));
-    console.log('2cropped');
+    console.log(this.croppedImage);
+    console.log('dassfsdfs<');
+    console.log(this.avatar);
   }
 
   dataURItoBlob(dataURI: any) {
@@ -138,6 +172,7 @@ export class EditProfilePicComponent {
       // console.log(img);
       this.homeService.saveProfileImage(file);
       this.uploading = false;
+      this.homeService.updateUserAvatar(file);
 
       console.log('done');
     }
