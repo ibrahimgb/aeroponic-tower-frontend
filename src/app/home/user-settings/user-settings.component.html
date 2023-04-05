@@ -6,7 +6,7 @@
     </div>
     <div>
       <div class="edit-profile">
-        <img [src]="avatar" alt="Image" />
+        <img [src]="avatar ? avatar : './assets/imgs/avatar.jpg'" alt="Image" />
         <div>
           <button mat-raised-button (click)="openDialog()">
             <mat-icon>edit</mat-icon>
