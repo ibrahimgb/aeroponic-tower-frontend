@@ -1,8 +1,8 @@
 <div class="div">
   <mat-card class="mat-card">
     <mat-card-header>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-title>Update your profile picture</mat-card-title>
+      <mat-card-subtitle>Change your Avatar</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div>
@@ -32,12 +32,20 @@
     <mat-card-actions class="flex">
       <button mat-raised-button>
         <label class="coustom-file-upload">
-          Upload
+          <div class="flex">
+            <mat-icon class="icon-display"> border_color</mat-icon>
+            <div>Edit</div>
+          </div>
           <input type="file" (change)="fileChangeEvent($event)" />
         </label>
       </button>
 
-      <button mat-raised-button (click)="saveImage()">Save</button>
+      <button mat-raised-button (click)="saveImage()">
+        <div class="flex">
+          <mat-icon class="icon-display">save</mat-icon>
+          <div>Save</div>
+        </div>
+      </button>
     </mat-card-actions>
     <mat-card-footer>
       <mat-progress-bar

@@ -8,13 +8,13 @@
       <div class="edit-profile">
         <img [src]="avatar" alt="Image" />
         <div>
-          <button mat-raised-button>
+          <button mat-raised-button (click)="openDialog()">
             <mat-icon>edit</mat-icon>
-            Basic
+            Edit
           </button>
-          <button mat-raised-button color="warn">
+          <button mat-raised-button color="warn" (click)="deleteAvatar()">
             <mat-icon>delete_forever</mat-icon>
-            Warn
+            Delete
           </button>
         </div>
       </div>
@@ -75,4 +75,7 @@
     </div>
   </div>
 </div>
-<app-edit-profile-pic></app-edit-profile-pic>
+<!-- <app-edit-profile-pic
+  *ngIf="closeDialog"
+  (closeDialog)="closeDialogchange($event)"
+></app-edit-profile-pic> -->

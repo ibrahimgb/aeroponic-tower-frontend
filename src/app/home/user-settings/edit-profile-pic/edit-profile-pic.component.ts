@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 //import { convertBase64ToFile, saveAs } from 'file-saver';
 import {
@@ -22,6 +23,8 @@ export class EditProfilePicComponent {
   transform: ImageTransform = {};
   user: any;
 
+  @Output() closeDialog = new EventEmitter<boolean>();
+
   avatar!: any;
   avatar1 = this.sanitizer.bypassSecurityTrustUrl(
     this.homeService.getAvatarBase64()
@@ -30,7 +33,9 @@ export class EditProfilePicComponent {
   constructor(
     private homeService: HomeService,
     private _sanitizer: DomSanitizer,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public dialogRef: MatDialogRef<EditProfilePicComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.homeService.getCurrentUser().subscribe((user) => {
       this.user = user;
@@ -38,8 +43,7 @@ export class EditProfilePicComponent {
   }
 
   ngOnInit() {
-    this.homeService.getUserAvatar();
-    this.homeService.userAvatar$.subscribe((blob: any) => {
+    this.homeService.getUserAvatarObs().subscribe((blob: any) => {
       let objectURL = URL.createObjectURL(blob);
       this.avatar = blob;
       //this.avatar = this.sanitizer.bypassSecurityTrustUrl(objectURL);
@@ -176,6 +180,8 @@ export class EditProfilePicComponent {
 
       console.log('done');
     }
+    this.dialogRef.close();
+    console.log('done');
   }
 
   imageLoaded() {

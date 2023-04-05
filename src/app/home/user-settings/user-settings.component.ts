@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HomeService } from '../home.service';
-
+import { EditProfilePicComponent } from './edit-profile-pic/edit-profile-pic.component';
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
@@ -18,8 +19,25 @@ export class UserSettingsComponent {
   constructor(
     private fb: FormBuilder,
     private homeService: HomeService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    public dialog: MatDialog
   ) {}
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(EditProfilePicComponent, {
+      data: { name: this.user.firstName },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      // this.ex = result;
+    });
+  }
+
+  deleteAvatar() {
+    this.homeService.deleteUserAvatar();
+    console.log('The dialog was closed');
+  }
 
   submit() {
     const res = this.homeService.editUser({

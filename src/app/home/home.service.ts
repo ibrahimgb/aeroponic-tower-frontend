@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -134,6 +134,34 @@ export class HomeService {
     res.subscribe((val) => {
       this.updateUserAvatar(val);
     });
+  }
+
+  getUserAvatarObs(): Observable<any> {
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+      responseType: 'blob',
+    };
+
+    return this.http.get(
+      `http://192.168.1.14:3000/user/profile-image/`,
+      HTTPOptions
+    );
+  }
+
+  deleteUserAvatar() {
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+    };
+
+    const res = this.http.delete(
+      `http://192.168.1.14:3000/user/profile-image/`,
+      HTTPOptions
+    );
+    res.subscribe(() => {});
   }
 
   getCurrentUser() {
