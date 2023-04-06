@@ -13,6 +13,7 @@ export class TowerMonitoringComponent {
   waterNeedsRefilling: any;
   pumpIsWorking: any;
   daysLeftToHarvest: number = 0;
+  pumpIntervalsList: any;
 
   constructor(private homeService: HomeService, public dialog: MatDialog) {}
 
@@ -29,13 +30,19 @@ export class TowerMonitoringComponent {
       console.log(diffTime + ' milliseconds');
       console.log(diffDays + ' days');
 
+      this.homeService.getAllPumpIntervalObs().subscribe((i: any) => {
+        // this.pumpIntervals = i;
+
+        this.pumpIntervalsList = JSON.parse(JSON.stringify(i));
+      });
+
       //console.log(i);
     });
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: this.tower,
+      data: { tower: this.tower, pumpIntervalsList: this.pumpIntervalsList },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
