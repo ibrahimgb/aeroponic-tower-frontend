@@ -79,3 +79,32 @@
   justify-content: space-between;
   margin: 24px;
 }
+.dilog {
+  max-height: 90vh;
+  h1 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .mat-card-content {
+    margin-top: 0 !important;
+  }
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon-display {
+  transform: scale(0.7);
+}
+input[type="file"] {
+  display: none;
+}
