@@ -58,6 +58,13 @@ export class HomeService {
     this.userAvatar$ = data;
   }
 
+  private _towerImage = new Subject();
+  towerImage$: any = this._towerImage.asObservable();
+  updateTowerImage(data: any) {
+    this._towerImage.next(data);
+    this.towerImage$ = data;
+  }
+
   private _userAvatarBase64 = new Subject();
   userAvatarBase64$: any = this._userAvatarBase64.asObservable();
   setAvatarBase64(data: any) {
@@ -211,6 +218,100 @@ export class HomeService {
     });
   }
 
+  getTowerImage(id: string): Observable<any> {
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+      responseType: 'blob',
+    };
+
+    return this.http.get(
+      `http://192.168.1.14:3000/aeroponic-tower/towerImage/${id}`,
+      HTTPOptions
+    );
+  }
+
+  getTower(id: string): Observable<any> {
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+    };
+
+    return this.http.get(
+      `http://192.168.1.14:3000/aeroponic-tower/get/${id}`,
+      HTTPOptions
+    );
+  }
+
+  setTowerPumpInterval(pumpIntervalId: number, towerId: string) {
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+    };
+
+    let body = {
+      pumpIntervalId: pumpIntervalId,
+      towerId: towerId,
+    };
+    console.log('body');
+    console.log(body);
+
+    return this.http.post(
+      `http://192.168.1.14:3000/aeroponic-tower/updatePumpInterval`,
+      body,
+      HTTPOptions
+    );
+  }
+
+  setTowerImage1(img: any, id: string) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    const requestOptions = { headers: headers };
+
+    const data = new FormData();
+    data.append('file', img);
+    console.log(img);
+
+    return this.http
+      .post(
+        `http://192.168.1.14:3000/aeroponic-tower/uploadtowerImage/${id}`,
+        data,
+        requestOptions
+      )
+      .subscribe((data: any) => {
+        console.log(data);
+      });
+  }
+
+  setTowerImage(img: any, id: string) {
+    const headers = new HttpHeaders({
+      // 'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${this.auth_token}`,
+    });
+
+    const requestOptions = { headers: headers };
+
+    const data = new FormData();
+    data.append('file', img);
+    console.log(img);
+
+    return this.http
+      .post(
+        'http://192.168.1.14:3000/aeroponic-tower/uploadtowerImage/' + id,
+        data,
+        requestOptions
+      )
+      .subscribe((avatar: any) => {
+        this.updateAvatar(avatar);
+      });
+  }
+
   getLastData(towerId: String) {
     const params = new HttpParams().set('towerId', towerId.toString());
 
@@ -235,6 +336,12 @@ export class HomeService {
       this.updatePumpInterval(val);
       console.log(val);
     });
+  }
+
+  getAllPumpIntervalObs() {
+    return this.http.get(
+      'http://192.168.1.14:3000/aeroponic-tower/allPumpIntervals'
+    );
   }
 
   getSenserData(startDate: Date, endDate: Date, towerId: String) {
