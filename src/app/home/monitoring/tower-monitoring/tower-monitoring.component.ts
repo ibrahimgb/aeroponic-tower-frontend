@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 import { HomeService } from '../../home.service';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 @Component({
@@ -15,12 +16,23 @@ export class TowerMonitoringComponent {
   daysLeftToHarvest: number = 0;
   pumpIntervalsList: any;
 
-  constructor(private homeService: HomeService, public dialog: MatDialog) {}
+  image: any;
+
+  constructor(
+    private homeService: HomeService,
+    public dialog: MatDialog,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit() {
     this.homeService.getLastData(this.tower.id).subscribe((i: any) => {
       this.waterNeedsRefilling = i[1].waterNeedsRefilling;
       this.pumpIsWorking = i[1].pumpIsWorking;
+
+      this.homeService.getTowerImage(this.tower.id).subscribe((data) => {
+        //this.image = data;
+        this.homeService.updateTowerImage(data);
+      });
 
       const date: any = new Date();
       const dateCreated: any = new Date(this.tower.dayStarted);
@@ -37,6 +49,32 @@ export class TowerMonitoringComponent {
       });
 
       //console.log(i);
+    });
+
+    this.homeService.towerImage$.subscribe(
+      (blob: any) => {
+        let objectURL = URL.createObjectURL(blob);
+
+        this.blobToBase64(blob).then((res: any) => {
+          console.log(res); // res is base64 now
+
+          this.homeService.setAvatarBase64(res);
+
+          this.image = this.sanitizer.bypassSecurityTrustUrl(res);
+        });
+      },
+      (err: any) => console.log('HTTP Error'),
+      () => console.log('HTTP request completed.')
+    );
+  }
+
+  blobToBase64(blob: any) {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    return new Promise((resolve) => {
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
     });
   }
 
