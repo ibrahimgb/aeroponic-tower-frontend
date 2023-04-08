@@ -22,6 +22,8 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { MonitoringComponent } from './monitoring/monitoring.component';
 import { TowerMonitoringComponent } from './monitoring/tower-monitoring/tower-monitoring.component';
 import { EditDialogComponent } from './monitoring/tower-monitoring/edit-dialog/edit-dialog.component';
+import { AllUsersComponent } from './all-users/all-users.component';
+import { SnackBarComponent } from './all-users/snack-bar/snack-bar.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -36,6 +38,8 @@ import { EditDialogComponent } from './monitoring/tower-monitoring/edit-dialog/e
     MonitoringComponent,
     TowerMonitoringComponent,
     EditDialogComponent,
+    AllUsersComponent,
+    SnackBarComponent,
   ],
   imports: [
     CommonModule,
