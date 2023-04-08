@@ -1,0 +1,36 @@
+.main {
+  padding: 1rem;
+
+  .table {
+    margin: 1rem;
+  }
+
+  .right {
+    position: relative;
+
+    margin: 1rem;
+    margin-top: 0;
+    button {
+      position: absolute;
+
+      right: 0rem;
+      bottom: 0rem;
+    }
+  }
+  .islend_gap {
+    margin-top: 1rem;
+  }
+  .input-container {
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .add_user_btm {
+    margin: 1.5rem;
+  }
+  .text {
+    margin: 1rem;
+    margin-left: 1.5rem;
+    margin-bottom: 0;
+  }
+}
