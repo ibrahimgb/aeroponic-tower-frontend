@@ -8,5 +8,11 @@
   height: 100%;
   z-index: 1;
 
-  background-color: #111;
+  //background-color: #111;
+}
+
+@media (max-width: 1150px) {
+  .side_nav {
+    width: min(14rem, 25vw);
+  }
 }
