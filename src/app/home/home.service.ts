@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class HomeService {
   auth_token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiYWJpci5ndW91YWwuYkBnbWFpbC5jb20iLCJpYXQiOjE2ODA2NTMwNTksImV4cCI6MTY4MTU1MzA1OX0.TVe1mk4R1v2mPM3bUyv6XmzC25-D_9t44IVtM78XeaE';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiYWJpci5ndW91YWwuYkBnbWFpbC5jb20iLCJpYXQiOjE2ODA4ODEzOTEsImV4cCI6MTY4MTc4MTM5MX0.fxNC5_bzt-10ckogLV17boRM906EcAuk5FWK2PIljR8';
   constructor(private http: HttpClient) {}
 
   private _data = new Subject();
@@ -73,9 +73,15 @@ export class HomeService {
   }
 
   private avatarBase64: any;
-
   getAvatarBase64() {
     return this.userAvatarBase64$;
+  }
+
+  private _getAllMyGroupUsers = new Subject();
+  getAllMyGroupUsers$: any = this._getAllMyGroupUsers.asObservable();
+  UpdateAllMyGroupUsers(data: any) {
+    this._getAllMyGroupUsers.next(data);
+    this.getAllMyGroupUsers$ = data;
   }
 
   // getLastData(towerId: String) {
@@ -153,6 +159,55 @@ export class HomeService {
 
     return this.http.get(
       `http://192.168.1.14:3000/user/profile-image/`,
+      HTTPOptions
+    );
+  }
+
+  getAllMyGroupUsers() {
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+    };
+
+    const res = this.http.get(
+      `http://192.168.1.14:3000/user/getAllMyGroupUsers`,
+      HTTPOptions
+    );
+
+    res.subscribe((val) => {
+      this.UpdateAllMyGroupUsers(val);
+      console.log(val);
+    });
+  }
+
+  removeUserFromGroup(id: number) {
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+    };
+
+    return this.http.delete(
+      'http://192.168.1.14:3000/user/removeUserFromGroup/' + id,
+      HTTPOptions
+    );
+  }
+
+  addUserToGroup(email: string): Observable<any> {
+    let HTTPOptions: Object = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.auth_token}`,
+      }),
+    };
+
+    let body = {
+      email: email,
+    };
+
+    return this.http.post(
+      `http://192.168.1.14:3000/user/addUserToGroup`,
+      body,
       HTTPOptions
     );
   }
