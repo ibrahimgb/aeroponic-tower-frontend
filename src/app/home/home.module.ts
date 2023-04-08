@@ -9,9 +9,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgChartsModule } from 'ng2-charts';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { MaterialModule } from '../material.module';
+import { AllUsersComponent } from './all-users/all-users.component';
+import { SnackBarComponent } from './all-users/snack-bar/snack-bar.component';
+import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { HomeService } from './home.service';
 import { LineChartComponent } from './line-chart/line-chart.component';
+import { MonitoringComponent } from './monitoring/monitoring.component';
+import { EditDialogComponent } from './monitoring/tower-monitoring/edit-dialog/edit-dialog.component';
+import { TowerMonitoringComponent } from './monitoring/tower-monitoring/tower-monitoring.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ReadingDirective } from './sensers-readings/reading.directive';
 import { ReadingComponent } from './sensers-readings/reading/reading.component';
@@ -19,11 +25,8 @@ import { SensersReadingsComponent } from './sensers-readings/sensers-readings.co
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { EditProfilePicComponent } from './user-settings/edit-profile-pic/edit-profile-pic.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
-import { MonitoringComponent } from './monitoring/monitoring.component';
-import { TowerMonitoringComponent } from './monitoring/tower-monitoring/tower-monitoring.component';
-import { EditDialogComponent } from './monitoring/tower-monitoring/edit-dialog/edit-dialog.component';
-import { AllUsersComponent } from './all-users/all-users.component';
-import { SnackBarComponent } from './all-users/snack-bar/snack-bar.component';
+
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -53,6 +56,8 @@ import { SnackBarComponent } from './all-users/snack-bar/snack-bar.component';
     ReactiveFormsModule,
     HttpClientModule,
     ImageCropperModule,
+    HomeRoutingModule,
+    RouterModule,
   ],
   exports: [HomeComponent],
   providers: [HomeService],
