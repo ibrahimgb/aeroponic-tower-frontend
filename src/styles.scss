@@ -27,3 +27,8 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.fixed {
+  position: fixed;
+  width: 100vw;
+}
