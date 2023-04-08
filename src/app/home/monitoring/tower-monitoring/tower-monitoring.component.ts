@@ -39,8 +39,8 @@ export class TowerMonitoringComponent {
       const diffTime = Math.abs(date - dateCreated);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       this.daysLeftToHarvest = this.tower.daysToHarvest - diffDays;
-      console.log(diffTime + ' milliseconds');
-      console.log(diffDays + ' days');
+      // console.log(diffTime + ' milliseconds');
+      // console.log(diffDays + ' days');
 
       this.homeService.getAllPumpIntervalObs().subscribe((i: any) => {
         // this.pumpIntervals = i;
@@ -84,8 +84,8 @@ export class TowerMonitoringComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      console.log(result);
+      // console.log('The dialog was closed');
+      // console.log(result);
       //this.tower = result;
     });
   }
