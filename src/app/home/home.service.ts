@@ -5,8 +5,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class HomeService {
-  auth_token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiYWJpci5ndW91YWwuYkBnbWFpbC5jb20iLCJpYXQiOjE2ODA4ODEzOTEsImV4cCI6MTY4MTc4MTM5MX0.fxNC5_bzt-10ckogLV17boRM906EcAuk5FWK2PIljR8';
+  auth_token = localStorage.getItem('access_token');
   constructor(private http: HttpClient) {}
 
   private _data = new Subject();
