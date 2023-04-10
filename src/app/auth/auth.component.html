@@ -5,33 +5,63 @@
     [ngClass]="signIn ? 'right-panel-active' : ''"
   >
     <div class="form-container sign-up-container">
-      <form action="#">
+      <form [formGroup]="signUpForm" action="#">
         <h1>Create Account</h1>
-        <div class="social-container">
+        <!-- <div class="social-container">
           <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
           <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
-        <span>or use your email for registration</span>
-        <input type="text" placeholder="Name" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <button (click)="signIn = false">Sign Up</button>
+        <span>or use your email for registration</span> -->
+        <input
+          type="text"
+          placeholder="First Name"
+          formControlName="firstName"
+        />
+        <input type="text" placeholder="Last Name" formControlName="lastName" />
+        <input
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+          ngModel
+          [email]="true"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <input
+          type="password"
+          placeholder="Confirm password"
+          formControlName="passwordConfirm"
+        />
+        <button (click)="singUp()">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
-      <form action="#">
+      <form [formGroup]="logInForm" action="#">
         <h1>Sign in</h1>
-        <div class="social-container">
+        <!-- <div class="social-container">
           <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
           <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
-        <span>or use your account</span>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+        <span>or use your account</span> -->
+        <input
+          type="email"
+          placeholder="Email"
+          formControlName="email"
+          ngModel
+          [email]="true"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
         <a href="#">Forgot your password?</a>
-        <button>Login</button>
+        <button (click)="login()">Login</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -39,7 +69,9 @@
         <div class="overlay-panel overlay-left">
           <h1>Hello friend!</h1>
           <p>Login to your account</p>
-          <button class="ghost" id="signIn">Login</button>
+          <button class="ghost" id="signIn" (click)="signIn = false">
+            Login
+          </button>
         </div>
         <div class="overlay-panel overlay-right">
           <h1>Welcome Back!</h1>
