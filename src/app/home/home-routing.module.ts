@@ -7,12 +7,12 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 const routes: Routes = [
   {
-    path: 'users',
+    path: 'home/users',
     component: AllUsersComponent,
   },
-  { path: 'readings', component: SensersReadingsComponent },
-  { path: 'settings', component: UserSettingsComponent },
-  { path: 'monitoring', component: MonitoringComponent },
+  { path: 'home/readings', component: SensersReadingsComponent },
+  { path: 'home/settings', component: UserSettingsComponent },
+  { path: 'home/monitoring', component: MonitoringComponent },
 ];
 
 @NgModule({

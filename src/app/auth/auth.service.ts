@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   singUp(data: object) {
     const headers = new HttpHeaders({
@@ -18,6 +19,9 @@ export class AuthService {
       .post('http://192.168.1.14:3000/auth/signup', data, requestOptions)
       .subscribe((token: any) => {
         this.setSession(token);
+        if (token.access_token) {
+          this.router.navigateByUrl('home/readings');
+        }
       });
   }
 
@@ -26,6 +30,9 @@ export class AuthService {
       .post('http://192.168.1.14:3000/auth/signin', data)
       .subscribe((token: any) => {
         this.setSession(token);
+        if (token.access_token) {
+          this.router.navigateByUrl('home/readings');
+        }
       });
   }
 

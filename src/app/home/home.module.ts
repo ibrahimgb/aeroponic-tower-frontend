@@ -26,7 +26,18 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { EditProfilePicComponent } from './user-settings/edit-profile-pic/edit-profile-pic.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { authGuard } from '../auth.guard';
+
+const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [authGuard],
+  },
+];
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -57,7 +68,7 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     ImageCropperModule,
     HomeRoutingModule,
-    RouterModule,
+    RouterModule.forChild(routes),
   ],
   exports: [HomeComponent],
   providers: [HomeService],
