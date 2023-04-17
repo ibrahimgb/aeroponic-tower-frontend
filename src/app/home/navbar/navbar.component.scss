@@ -1,3 +1,5 @@
+@use "src/assets/themes" as *;
+
 .navbar {
   height: 4rem;
   display: flex;
@@ -6,8 +8,11 @@
   justify-content: flex-end;
   gap: 1rem;
   color: white;
-  background-color: rgb(105, 118, 134);
+  background-color: $main;
   padding-right: 1.5rem;
+  position: sticky;
+  top: 0rem;
+  z-index: 100;
   p {
     margin: 0 0 0px;
   }

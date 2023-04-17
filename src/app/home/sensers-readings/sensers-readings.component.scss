@@ -1,3 +1,4 @@
+@use "src/assets/themes" as *;
 .islend {
   margin: 15px;
   padding: auto;
@@ -35,4 +36,5 @@ h2 {
   margin: 0.8rem;
   font-weight: 800;
   font-size: 1.5rem;
+  color: $main;
 }

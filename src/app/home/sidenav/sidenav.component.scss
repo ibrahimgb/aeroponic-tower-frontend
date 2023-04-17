@@ -1,8 +1,11 @@
+@use "src/assets/themes" as *;
+
 .sidebar {
   border-right: 2px solid rgb(228, 229, 231);
   height: 100%;
   color: rgb(151, 158, 176);
   background-color: white;
+  margin-top: 0;
 
   .item {
     display: flex;
@@ -18,7 +21,7 @@
     user-select: none; /* Standard syntax */
   }
   .item:hover {
-    color: rgb(76, 159, 189);
+    color: $main;
     background-color: rgba(76, 159, 189, 0.1);
   }
 }

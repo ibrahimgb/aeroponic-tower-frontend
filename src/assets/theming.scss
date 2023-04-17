@@ -1,7 +1,7 @@
 @import "./palette.scss";
 
-$my-theme-primary: mat-palette($mat-indigo, 500, 200, 800);
-$my-theme-accent: mat-palette($mat-cyan);
+$my-theme-primary: mat-palette($theme-primary, 500, 200, 700);
+$my-theme-accent: mat-palette($theme-accent);
 $my-theme-warn: mat-palette($mat-deep-orange, A200);
 
 // $my-theme-primary: mat-palette($theme-primary);
@@ -9,9 +9,9 @@ $my-theme-warn: mat-palette($mat-deep-orange, A200);
 // $my-theme-warn: mat-palette($theme-warn);
 
 $light-theme: mat-light-theme(
-    $my-theme-primary,
-    $my-theme-accent,
-    $my-theme-warn
+  $my-theme-primary,
+  $my-theme-accent,
+  $my-theme-warn
 );
 
 // ====================================
@@ -20,7 +20,7 @@ $light-theme: mat-light-theme(
 // backgrounds.
 // ====================================
 $dark-theme: mat-dark-theme(
-    $my-theme-primary,
-    $my-theme-accent,
-    $my-theme-warn
+  $my-theme-primary,
+  $my-theme-accent,
+  $my-theme-warn
 );
