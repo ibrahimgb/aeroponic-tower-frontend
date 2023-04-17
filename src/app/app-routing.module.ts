@@ -7,6 +7,7 @@ import { MonitoringComponent } from './home/monitoring/monitoring.component';
 import { SensersReadingsComponent } from './home/sensers-readings/sensers-readings.component';
 import { UserSettingsComponent } from './home/user-settings/user-settings.component';
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'login',
     component: AuthComponent,
@@ -15,6 +16,7 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     children: [
+      { path: '', redirectTo: 'readings', pathMatch: 'full' },
       {
         path: 'users',
         component: AllUsersComponent,

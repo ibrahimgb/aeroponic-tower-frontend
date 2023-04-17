@@ -22,6 +22,17 @@ export class AuthComponent {
   ) {}
 
   ngOnInit() {
+    const auth_token = localStorage.getItem('access_token');
+
+    if (auth_token) {
+      this.authService.getCurrentUser().subscribe((value) => {
+        console.log(value);
+        if (value) {
+          this.router.navigate([`home/readings`]);
+        }
+      });
+    }
+
     this.logInForm = this.fb.group({
       email: '',
       password: '',
