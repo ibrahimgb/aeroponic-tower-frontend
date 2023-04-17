@@ -11,7 +11,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { MaterialModule } from '../material.module';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { SnackBarComponent } from './all-users/snack-bar/snack-bar.component';
-import { HomeRoutingModule } from './home-routing.module';
+//import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { HomeService } from './home.service';
 import { LineChartComponent } from './line-chart/line-chart.component';
@@ -67,7 +67,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     ImageCropperModule,
-    HomeRoutingModule,
+    //HomeRoutingModule,
     RouterModule.forChild(routes),
   ],
   exports: [HomeComponent],

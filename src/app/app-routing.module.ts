@@ -1,10 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [];
-
+import { AuthComponent } from './auth/auth.component';
+import { AllUsersComponent } from './home/all-users/all-users.component';
+import { HomeComponent } from './home/home.component';
+import { MonitoringComponent } from './home/monitoring/monitoring.component';
+import { SensersReadingsComponent } from './home/sensers-readings/sensers-readings.component';
+import { UserSettingsComponent } from './home/user-settings/user-settings.component';
+const routes: Routes = [
+  {
+    path: 'login',
+    component: AuthComponent,
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    children: [
+      {
+        path: 'users',
+        component: AllUsersComponent,
+      },
+      { path: 'readings', component: SensersReadingsComponent },
+      { path: 'settings', component: UserSettingsComponent },
+      { path: 'monitoring', component: MonitoringComponent },
+    ],
+  },
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

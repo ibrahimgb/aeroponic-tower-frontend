@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 @Component({
   selector: 'app-auth',
@@ -16,7 +17,8 @@ export class AuthComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class AuthComponent {
     }
   }
 
-  singUp() {
+  async singUp() {
     // this.signIn = false;
 
     const singUp = this.signUpForm.getRawValue();
@@ -63,10 +65,32 @@ export class AuthComponent {
     } else {
       delete singUp.passwordConfirm;
       //console.log(singUp);
-      this.authService.singUp(singUp);
+
+      const res = await this.authService.singUp(singUp).subscribe({
+        next: (token: any) => {
+          this.authService.setSession(token);
+          if (token.access_token) {
+            this.router.navigateByUrl('home/readings');
+            this.openSnackBar('Hi there!, you are logged in now');
+            return;
+          }
+          this.openSnackBar('Error try again');
+          return;
+        },
+        error: (err) => {
+          if (err.status === 403) {
+            this.openSnackBar('looks like the email already sign in');
+            return;
+          }
+          this.openSnackBar('Error try again');
+          return;
+        },
+      });
     }
   }
   openSnackBar(message: string) {
-    this._snackBar.open(message, 'Ok', {});
+    this._snackBar.open(message, 'Ok', {
+      duration: 800,
+    });
   }
 }

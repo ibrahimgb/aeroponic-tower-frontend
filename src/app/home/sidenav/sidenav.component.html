@@ -1,13 +1,13 @@
 <div class="sidebar">
   <div matRipple>
-    <a class="item" routerLink="/readings" routerLinkActive="active">
+    <a class="item" [routerLink]="['readings']" routerLinkActive="active">
       <fa-icon style="font-size: 25px" [icon]="faChartLine"></fa-icon>
       <h4>Dashboard</h4>
     </a>
   </div>
 
   <div matRipple>
-    <a class="item" routerLink="/monitoring" routerLinkActive="active">
+    <a class="item" [routerLink]="['monitoring']" rrouterLinkActive="active">
       <fa-icon style="font-size: 25px" [icon]="faWatchmanMonitoring"></fa-icon>
       <h4>Monitoring</h4>
     </a>
@@ -19,14 +19,14 @@
   </div>
 
   <div matRipple>
-    <a class="item" routerLink="/settings" routerLinkActive="active">
+    <a class="item" [routerLink]="['settings']" routerLinkActive="active">
       <fa-icon style="font-size: 25px" [icon]="faExclamationCircle"></fa-icon>
       <h4>Emergemcies</h4>
     </a>
   </div>
 
   <div matRipple>
-    <a class="item" routerLink="/users" routerLinkActive="active">
+    <a class="item" [routerLink]="['users']" routerLinkActive="active">
       <fa-icon style="font-size: 25px" [icon]="faUser"></fa-icon>
       <h4>Users</h4>
     </a>

@@ -15,14 +15,11 @@ export class AuthService {
 
     const requestOptions = { headers: headers };
 
-    return this.http
-      .post('http://192.168.1.14:3000/auth/signup', data, requestOptions)
-      .subscribe((token: any) => {
-        this.setSession(token);
-        if (token.access_token) {
-          this.router.navigateByUrl('home/readings');
-        }
-      });
+    return this.http.post(
+      'http://192.168.1.14:3000/auth/signup',
+      data,
+      requestOptions
+    );
   }
 
   logIn(data: object) {
@@ -36,7 +33,7 @@ export class AuthService {
       });
   }
 
-  private setSession(authResult: any) {
+  setSession(authResult: any) {
     localStorage.setItem('access_token', authResult.access_token);
   }
 }
