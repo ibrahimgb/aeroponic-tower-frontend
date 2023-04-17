@@ -63,14 +63,14 @@
 <div class="islend first">
   <div class="filter">
     <button mat-raised-button color="primary" (click)="getData()">
-      Primary
+      Change Tower
     </button>
     <h2>sensors line chart</h2>
     <mat-form-field appearance="fill">
-      <mat-label>Toppings</mat-label>
+      <mat-label>Readins</mat-label>
       <mat-select [formControl]="dataToShow" multiple>
-        <mat-option *ngFor="let topping of dataList" [value]="topping">{{
-          topping
+        <mat-option *ngFor="let list of dataList" [value]="list">{{
+          list
         }}</mat-option>
       </mat-select>
     </mat-form-field>
