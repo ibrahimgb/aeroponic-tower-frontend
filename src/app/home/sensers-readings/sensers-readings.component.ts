@@ -7,6 +7,9 @@ import { HomeService } from '../home.service';
 import { ActivatedRoute } from '@angular/router';
 
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { SensersReadingsService } from './sensers-readings.service';
+
+import { interval } from 'rxjs';
 @Component({
   selector: 'app-sensers-readings',
   templateUrl: './sensers-readings.component.html',
@@ -25,7 +28,7 @@ export class SensersReadingsComponent {
     // console.log(this.picker);
     // console.log('dafdasfdsfdsfefe');
 
-    const res = await this.homeService
+    const res = await this.sensersReadingsService
       .getSenserDataUpdate(
         this.getDateCustom(this.picker),
         this.getTomorrowDateCustom(this.picker),
@@ -35,7 +38,7 @@ export class SensersReadingsComponent {
         console.log(this.data);
       });
 
-    this.data = this.homeService.data$;
+    this.data = this.sensersReadingsService.data$;
     console.log('dddd');
     console.log(this.data);
   }
@@ -49,6 +52,7 @@ export class SensersReadingsComponent {
 
   constructor(
     private homeService: HomeService,
+    private sensersReadingsService: SensersReadingsService,
     activatedRoute: ActivatedRoute
   ) {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
@@ -56,15 +60,23 @@ export class SensersReadingsComponent {
     this.minDate = new Date();
     this.maxDate = this.getTomorrowDate();
     //this.getData();
-
-    // activatedRoute.params.subscribe((params) => {
-    this.homeService.getLastData(this.id).subscribe((data) => {
+    this.sensersReadingsService.getLastData(this.id).subscribe((data) => {
       this.lastData = data;
     });
+
+    // activatedRoute.params.subscribe((params) => {
+
     // this.homeService.lastData$.subscribe((i: any) => {
     //   this.lastData = i;
     // });
     // });
+
+    interval(30000).subscribe((x) => {
+      // will execute every 30 seconds
+      this.sensersReadingsService.getLastData(this.id).subscribe((data) => {
+        this.lastData = data;
+      });
+    });
   }
 
   getTomorrowDate(): Date {
@@ -94,8 +106,12 @@ export class SensersReadingsComponent {
   }
 
   ngOnInit() {
-    this.homeService.getSenserDataUpdate(this.minDate, this.maxDate, this.id);
-    this.homeService.data$.subscribe((i: any) => {
+    this.sensersReadingsService.getSenserDataUpdate(
+      this.minDate,
+      this.maxDate,
+      this.id
+    );
+    this.sensersReadingsService.data$.subscribe((i: any) => {
       this.data = i;
       console.log('updated');
     });

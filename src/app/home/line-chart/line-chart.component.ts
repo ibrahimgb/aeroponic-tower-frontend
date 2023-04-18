@@ -6,6 +6,7 @@ import { default as Annotation } from 'chartjs-plugin-annotation';
 
 import { HomeService } from '../home.service';
 
+import { SensersReadingsService } from '../sensers-readings/sensers-readings.service';
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
@@ -17,13 +18,16 @@ export class LineChartComponent {
   dataArray?: any;
   lineChartData!: ChartConfiguration['data'];
 
-  constructor(private homeService: HomeService) {
+  constructor(
+    private homeService: HomeService,
+    private sensersReadingsService: SensersReadingsService
+  ) {
     Chart.register(Annotation);
     console.log(this.data);
   }
 
   ngOnInit() {
-    this.homeService.data$.subscribe((i: any) => {
+    this.sensersReadingsService.data$.subscribe((i: any) => {
       this.data = i;
       this.dataArray = JSON.parse(JSON.stringify(this.data));
       //console.log(this.dataArray);

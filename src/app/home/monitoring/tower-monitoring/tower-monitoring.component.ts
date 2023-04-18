@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HomeService } from '../../home.service';
+import { SensersReadingsService } from '../../sensers-readings/sensers-readings.service';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 @Component({
   selector: 'app-tower-monitoring',
@@ -20,36 +21,39 @@ export class TowerMonitoringComponent {
 
   constructor(
     private homeService: HomeService,
+    private sensersReadingsService: SensersReadingsService,
     public dialog: MatDialog,
     private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
-    this.homeService.getLastData(this.tower.id).subscribe((i: any) => {
-      this.waterNeedsRefilling = i[1].waterNeedsRefilling;
-      this.pumpIsWorking = i[1].pumpIsWorking;
+    this.sensersReadingsService
+      .getLastData(this.tower.id)
+      .subscribe((i: any) => {
+        this.waterNeedsRefilling = i[1].waterNeedsRefilling;
+        this.pumpIsWorking = i[1].pumpIsWorking;
 
-      this.homeService.getTowerImage(this.tower.id).subscribe((data) => {
-        //this.image = data;
-        this.homeService.updateTowerImage(data);
+        this.homeService.getTowerImage(this.tower.id).subscribe((data) => {
+          //this.image = data;
+          this.homeService.updateTowerImage(data);
+        });
+
+        const date: any = new Date();
+        const dateCreated: any = new Date(this.tower.dayStarted);
+        const diffTime = Math.abs(date - dateCreated);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        this.daysLeftToHarvest = this.tower.daysToHarvest - diffDays;
+        // console.log(diffTime + ' milliseconds');
+        // console.log(diffDays + ' days');
+
+        this.homeService.getAllPumpIntervalObs().subscribe((i: any) => {
+          // this.pumpIntervals = i;
+
+          this.pumpIntervalsList = JSON.parse(JSON.stringify(i));
+        });
+
+        //console.log(i);
       });
-
-      const date: any = new Date();
-      const dateCreated: any = new Date(this.tower.dayStarted);
-      const diffTime = Math.abs(date - dateCreated);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      this.daysLeftToHarvest = this.tower.daysToHarvest - diffDays;
-      // console.log(diffTime + ' milliseconds');
-      // console.log(diffDays + ' days');
-
-      this.homeService.getAllPumpIntervalObs().subscribe((i: any) => {
-        // this.pumpIntervals = i;
-
-        this.pumpIntervalsList = JSON.parse(JSON.stringify(i));
-      });
-
-      //console.log(i);
-    });
 
     this.homeService.towerImage$.subscribe(
       (blob: any) => {
