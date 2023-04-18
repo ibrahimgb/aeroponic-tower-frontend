@@ -2,11 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  apiUrl: string = environment.domain;
+
   private _user = new Subject();
   user$: any; // = this._data.asObservable();
   updateUser(data: any) {
@@ -26,16 +29,12 @@ export class AuthService {
 
     const requestOptions = { headers: headers };
 
-    return this.http.post(
-      'http://192.168.1.14:3000/auth/signup',
-      data,
-      requestOptions
-    );
+    return this.http.post(this.apiUrl + '/auth/signup', data, requestOptions);
   }
 
   logIn(data: object) {
     return this.http
-      .post('http://192.168.1.14:3000/auth/signin', data)
+      .post(this.apiUrl + '/auth/signin', data)
       .subscribe((token: any) => {
         this.setSession(token);
         if (token.access_token) {
@@ -58,10 +57,7 @@ export class AuthService {
 
     const requestOptions = { headers: headers };
 
-    const res = this.http.get(
-      'http://192.168.1.14:3000/user/me',
-      requestOptions
-    );
+    const res = this.http.get(this.apiUrl + '/user/me', requestOptions);
 
     res.subscribe((val: any) => {
       this.updateUser(val);

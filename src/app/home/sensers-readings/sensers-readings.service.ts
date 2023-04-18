@@ -1,12 +1,15 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SensersReadingsService {
   auth_token = localStorage.getItem('access_token');
+
+  apiUrl: string = environment.domain;
 
   private _data = new Subject();
   data$: any = this._data.asObservable();
@@ -20,7 +23,7 @@ export class SensersReadingsService {
   getLastData(towerId: String) {
     const params = new HttpParams().set('towerId', towerId.toString());
 
-    return this.http.get('http://192.168.1.14:3000/sensor/getLastReadings', {
+    return this.http.get(this.apiUrl + '/sensor/getLastReadings', {
       params: params,
     });
   }
@@ -36,7 +39,7 @@ export class SensersReadingsService {
       .set('towerId', towerId.toString());
 
     this.sendData(
-      this.http.get('http://192.168.1.14:3000/sensor/getReadings', {
+      this.http.get(this.apiUrl + '/sensor/getReadings', {
         params: params,
       })
     );
@@ -52,12 +55,9 @@ export class SensersReadingsService {
         .set('endDate', endDate.toDateString())
         .set('towerId', towerId.toString());
 
-      const res = await this.http.get(
-        'http://192.168.1.14:3000/sensor/getReadings',
-        {
-          params: params,
-        }
-      );
+      const res = await this.http.get(this.apiUrl + '/sensor/getReadings', {
+        params: params,
+      });
       res.subscribe((val) => {
         this.sendData(val);
         console.log('dd');

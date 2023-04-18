@@ -1,11 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class HomeService {
   auth_token = localStorage.getItem('access_token');
+  apiUrl: string = environment.domain;
   constructor(private http: HttpClient) {}
 
   private _allAeroponicTower = new Subject();
@@ -80,13 +82,13 @@ export class HomeService {
   //   const params = new HttpParams().set('towerId', towerId.toString());
 
   //   this.sendLastData(
-  //     this.http.get('http://192.168.1.14:3000/sensor/getLastReadings', {
+  //     this.http.get(this.apiUrl + '/sensor/getLastReadings', {
   //       params: params,
   //     })
   //   );
   // }
 
-  //http://192.168.1.14:3000/aeroponic-tower/all
+  //${this.apiUrl}/aeroponic-tower/all
 
   saveProfileImage(img: any) {
     const headers = new HttpHeaders({
@@ -101,16 +103,14 @@ export class HomeService {
     console.log(img);
 
     return this.http
-      .post('http://192.168.1.14:3000/user/uploadAvatar', data, requestOptions)
+      .post(this.apiUrl + '/user/uploadAvatar', data, requestOptions)
       .subscribe((avatar: any) => {
         this.updateAvatar(avatar);
       });
   }
 
   getAvatar(name: string) {
-    const res = this.http.get(
-      `http://192.168.1.14:3000/user/profile-image/${name}`
-    );
+    const res = this.http.get(`${this.apiUrl}/user/profile-image/${name}`);
 
     res.subscribe((val: any) => {
       this.updateAvatar(val);
@@ -132,7 +132,7 @@ export class HomeService {
     };
 
     const res = this.http.get(
-      `http://192.168.1.14:3000/user/profile-image/`,
+      `${this.apiUrl}/user/profile-image/`,
       HTTPOptions
     );
 
@@ -149,10 +149,7 @@ export class HomeService {
       responseType: 'blob',
     };
 
-    return this.http.get(
-      `http://192.168.1.14:3000/user/profile-image/`,
-      HTTPOptions
-    );
+    return this.http.get(`${this.apiUrl}/user/profile-image/`, HTTPOptions);
   }
 
   getAllMyGroupUsers() {
@@ -163,7 +160,7 @@ export class HomeService {
     };
 
     const res = this.http.get(
-      `http://192.168.1.14:3000/user/getAllMyGroupUsers`,
+      `${this.apiUrl}/user/getAllMyGroupUsers`,
       HTTPOptions
     );
 
@@ -181,7 +178,7 @@ export class HomeService {
     };
 
     return this.http.delete(
-      'http://192.168.1.14:3000/user/removeUserFromGroup/' + id,
+      this.apiUrl + '/user/removeUserFromGroup/' + id,
       HTTPOptions
     );
   }
@@ -198,7 +195,7 @@ export class HomeService {
     };
 
     return this.http.post(
-      `http://192.168.1.14:3000/user/addUserToGroup`,
+      `${this.apiUrl}/user/addUserToGroup`,
       body,
       HTTPOptions
     );
@@ -212,7 +209,7 @@ export class HomeService {
     };
 
     const res = this.http.delete(
-      `http://192.168.1.14:3000/user/profile-image/`,
+      `${this.apiUrl}/user/profile-image/`,
       HTTPOptions
     );
     res.subscribe(() => {});
@@ -228,10 +225,7 @@ export class HomeService {
 
     const requestOptions = { headers: headers };
 
-    const res = this.http.get(
-      'http://192.168.1.14:3000/user/me',
-      requestOptions
-    );
+    const res = this.http.get(this.apiUrl + '/user/me', requestOptions);
 
     res.subscribe((val: any) => {
       this.updateUser(val);
@@ -246,7 +240,7 @@ export class HomeService {
   }
 
   editUser(edit: any) {
-    const res = this.http.patch('http://192.168.1.14:3000/user', {
+    const res = this.http.patch(this.apiUrl + '/user', {
       ...edit,
     });
     res.subscribe((val) => {
@@ -256,7 +250,7 @@ export class HomeService {
   }
 
   getAllAeroponicTower() {
-    const res = this.http.get('http://192.168.1.14:3000/aeroponic-tower/all');
+    const res = this.http.get(this.apiUrl + '/aeroponic-tower/all');
 
     res.subscribe((val) => {
       this.updateAllAeroponicTower(val);
@@ -274,7 +268,7 @@ export class HomeService {
     };
 
     return this.http.get(
-      `http://192.168.1.14:3000/aeroponic-tower/towerImage/${id}`,
+      `${this.apiUrl}/aeroponic-tower/towerImage/${id}`,
       HTTPOptions
     );
   }
@@ -287,7 +281,7 @@ export class HomeService {
     };
 
     return this.http.get(
-      `http://192.168.1.14:3000/aeroponic-tower/get/${id}`,
+      `${this.apiUrl}/aeroponic-tower/get/${id}`,
       HTTPOptions
     );
   }
@@ -307,7 +301,7 @@ export class HomeService {
     console.log(body);
 
     return this.http.post(
-      `http://192.168.1.14:3000/aeroponic-tower/updatePumpInterval`,
+      `${this.apiUrl}/aeroponic-tower/updatePumpInterval`,
       body,
       HTTPOptions
     );
@@ -327,7 +321,7 @@ export class HomeService {
 
     return this.http
       .post(
-        `http://192.168.1.14:3000/aeroponic-tower/uploadtowerImage/${id}`,
+        `${this.apiUrl}/aeroponic-tower/uploadtowerImage/${id}`,
         data,
         requestOptions
       )
@@ -350,7 +344,7 @@ export class HomeService {
 
     return this.http
       .post(
-        'http://192.168.1.14:3000/aeroponic-tower/uploadtowerImage/' + id,
+        this.apiUrl + '/aeroponic-tower/uploadtowerImage/' + id,
         data,
         requestOptions
       )
@@ -360,15 +354,12 @@ export class HomeService {
   }
 
   setAeroponicTower(tower: any) {
-    return this.http.post(
-      'http://192.168.1.14:3000/aeroponic-tower/editTower',
-      tower
-    );
+    return this.http.post(this.apiUrl + '/aeroponic-tower/editTower', tower);
   }
 
   getAllPumpInterval() {
     const res = this.http.get(
-      'http://192.168.1.14:3000/aeroponic-tower/allPumpIntervals'
+      this.apiUrl + '/aeroponic-tower/allPumpIntervals'
     );
 
     res.subscribe((val) => {
@@ -378,8 +369,6 @@ export class HomeService {
   }
 
   getAllPumpIntervalObs() {
-    return this.http.get(
-      'http://192.168.1.14:3000/aeroponic-tower/allPumpIntervals'
-    );
+    return this.http.get(this.apiUrl + '/aeroponic-tower/allPumpIntervals');
   }
 }
