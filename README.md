@@ -15,13 +15,16 @@ SkyFarms Dashboard is an IoT solution for tracking temperature and humidity, as 
 
 ## Technologies Used
 
+
+- HTML
+- vanila CSS
+- SCSS
+- JavaScript
+- Typescript
 - Angular
-- TypeScript
 - Angular Material
-
-
-
-
+- RxJs
+- restful API's
 
 
 ## Features
