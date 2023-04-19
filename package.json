@@ -7,7 +7,8 @@
     "start:prid": "ng serve --configuration-production",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:production": "ng build --aot --build-optimizer --common-chunk --vendor-chunk --optimization --progress --configuration=production"
   },
   "private": true,
   "dependencies": {
